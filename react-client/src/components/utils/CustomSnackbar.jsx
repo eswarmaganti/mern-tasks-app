@@ -11,7 +11,7 @@ const CustomSnackbar = ({ state, setState }) => {
   return (
     <Snackbar
       open={isAlertOpen}
-      autoHideDuration={6000}
+      autoHideDuration={4000}
       anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       TransitionComponent={TransitionUp}
       onClose={handleClose}

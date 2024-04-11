@@ -3,10 +3,7 @@ import { red } from "@mui/material/colors";
 
 const theme = createTheme({
   typography: {
-    fontFamily: ["Raleway", "sans-serif"].join(","),
-  },
-  palette: {
-    secondary: red,
+    fontFamily: ["Rubik", "Montserrat", "sans-serif"].join(","),
   },
 });
 

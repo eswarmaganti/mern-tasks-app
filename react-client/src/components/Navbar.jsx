@@ -6,8 +6,7 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
-import AddTodoIcon from "@mui/icons-material/AddTaskOutlined";
-import TodoListIcon from "@mui/icons-material/ListOutlined";
+import DashboardIcon from "@mui/icons-material/DashboardRounded";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -21,11 +20,12 @@ const Navbar = () => {
           <Typography
             gutterBottom
             variant="subtitle1"
-            textTransform="uppercase"
+            fontFamily="Montserrat"
             color="primary"
+            textTransform="uppercase"
             fontWeight="bold"
           >
-            Todo Application
+            Tasks Tracker
           </Typography>
           <Stack
             direction="row"
@@ -38,20 +38,10 @@ const Navbar = () => {
               component={Link}
               to="/"
               size="small"
-              color={`${pathname === "/" ? "secondary" : "inherit"}`}
-              startIcon={<TodoListIcon />}
+              color={`${pathname === "/" ? "primary" : "inherit"}`}
+              startIcon={<DashboardIcon />}
             >
-              My Todos
-            </Button>
-
-            <Button
-              component={Link}
-              to="/add-todo"
-              size="small"
-              color={`${pathname === "/add-todo" ? "secondary" : "inherit"}`}
-              startIcon={<AddTodoIcon />}
-            >
-              Add Todo
+              Dashboard
             </Button>
           </Stack>
         </Toolbar>
