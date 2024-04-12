@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import morgan from "morgan";
 import db from "./db.js";
-import todoRouter from "./routes/todo.js";
+import taskRouter from "./routes/tasks.js";
 import path from "path";
 import url from "url";
 
@@ -24,7 +24,7 @@ db();
 
 app.use(cors());
 app.use(express.static(path.join(__dirname, "../../react-client/dist/")));
-app.use("/api/v1/todo/", todoRouter);
+app.use("/api/v1/tasks/", taskRouter);
 
 // Running Express Server
 const PORT = process.env.PORT || 5000;
