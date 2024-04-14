@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -12,7 +12,9 @@ import {
 } from "../../store/api/tasksApi";
 import { Container } from "@mui/material";
 
-const TasksListByCategory = () => {
+// Accepts a callback function as props from parent component to open the delete dialog for the task
+
+const TasksListByCategory = ({ handleOpenDeleteDialog }) => {
   const { fetchAllTasks, isLoading, isError, isSuccess, error, data } =
     useFetchAllTasksQuery();
 
@@ -33,18 +35,28 @@ const TasksListByCategory = () => {
           </Typography>
           {data?.tasks[category].length ? (
             data?.tasks[category].map((task) => (
-              <Task key={task._id} task={task} />
+              <Task
+                key={task._id}
+                task={task}
+                handleOpenDeleteDialog={handleOpenDeleteDialog}
+              />
             ))
           ) : (
-            <Container sx={{ mt: "1rem" }}>
-              <Alert variant="outlined" severity="info">
-                No Tasks Available
-              </Alert>
-            </Container>
+            <TasksFallbackComponent />
           )}
         </Grid>
       ))}
     </Grid>
+  );
+};
+
+const TasksFallbackComponent = () => {
+  return (
+    <Container sx={{ mt: "1rem" }}>
+      <Alert variant="outlined" severity="info">
+        No Tasks Available
+      </Alert>
+    </Container>
   );
 };
 

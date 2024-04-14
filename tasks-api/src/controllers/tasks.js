@@ -2,13 +2,15 @@ import Task from "../models/tasks.js";
 export const addATask = async (req, res) => {
   try {
     const { title, description, status, start_date, end_date, tag } = req.body;
+    console.log(`StartDate: ${start_date}`);
+    console.log(`EndDate: ${end_date}`);
 
     const task = await Task({
       title,
       description,
       status,
-      start_date,
-      end_date,
+      start_date: new Date(start_date),
+      end_date: new Date(end_date),
       tag,
     });
     task.save();
@@ -148,13 +150,11 @@ export const getTaskStats = async (req, res) => {
       data[status] = count;
     }
 
-    return res
-      .status(200)
-      .json({
-        data: data,
-        message: "Task stats fetched successfully",
-        status: "success",
-      });
+    return res.status(200).json({
+      data: data,
+      message: "Task stats fetched successfully",
+      status: "success",
+    });
   } catch (error) {
     console.error(
       `*** Error: Something went wrong while fetchig task stats : ${error.message} ***`

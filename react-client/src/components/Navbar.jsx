@@ -7,6 +7,7 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 
 import DashboardIcon from "@mui/icons-material/DashboardRounded";
+import AccountIcon from "@mui/icons-material/AccountCircleRounded";
 
 import { Link, useLocation } from "react-router-dom";
 
@@ -42,6 +43,15 @@ const Navbar = () => {
               startIcon={<DashboardIcon />}
             >
               Dashboard
+            </Button>
+            <Button
+              component={Link}
+              to="/account"
+              size="small"
+              color={`${pathname === "/account" ? "primary" : "inherit"}`}
+              startIcon={<AccountIcon />}
+            >
+              Account
             </Button>
           </Stack>
         </Toolbar>

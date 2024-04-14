@@ -82,11 +82,7 @@ const AddNewTask = () => {
   // form handler to dispatch action
   const addNewTaskHandler = (data) => {
     console.log(data);
-    addNewTask({
-      ...data,
-      start_date: Date(data.start_date),
-      end_date: Date(data.end_date),
-    });
+    addNewTask(data);
   };
 
   // effect hook to handle api call
@@ -114,8 +110,9 @@ const AddNewTask = () => {
       <Button
         endIcon={<AddIcon />}
         onClick={handleDialogOpen}
-        variant="outlined"
+        variant="contained"
         color="primary"
+        size="small"
       >
         New Task
       </Button>
