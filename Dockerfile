@@ -16,8 +16,5 @@ COPY --chown=node:node react-client/ ./react-client/
 
 RUN cd react-client && npm run build
 
-ENV PORT=5001
-ENV MONGODB_URI=mongodb://localhost:27017/tasks
-
 CMD ["node","tasks-api/src/server.js"]
 

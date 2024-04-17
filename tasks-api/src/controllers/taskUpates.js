@@ -1,5 +1,9 @@
 import TaskUpdates from "../models/taskUpdates.js";
 
+
+// method: POST
+// access: private
+// action: to create an update to task
 export const addTaskUpdate = async (req, res) => {
   try {
     const { taskid } = req.params;
@@ -28,6 +32,10 @@ export const addTaskUpdate = async (req, res) => {
   }
 };
 
+
+// method: GET
+// access: private
+// action: fetch all the task updates by id
 export const getTaskUpdates = async (req, res) => {
   try {
     const { taskid } = req.params;
@@ -51,4 +59,25 @@ export const getTaskUpdates = async (req, res) => {
   }
 };
 
-export const deleteTaskUpdate = async (req, res) => {};
+
+// method: DELETE
+// access: private
+// action: delete a task by id
+export const deleteTaskUpdate = async (req, res) => {
+  try{
+    const {taskid} = req.params;
+    const taskupdate = await TaskUpdates.findOne({_id: taskid});
+
+    if( ! taskupdate){
+      return res.status(404).json({"message":"There is no task update availabe to delete",status:"success"})
+    }
+
+    await TaskUpdates.deleteOne({_id:taskid})
+
+    return res.status(200).json({"message":"Task update deleted successfully","status":"success"})
+  }
+  catch (error ){
+    console.error(`*** Error: Something went wrong while deleting the task update: ${error.message} ***`)
+    return res.status(500).json({message:"Something went wrong while deleting the task update, try again later",status:"error",})
+  }
+};
