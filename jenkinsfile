@@ -2,7 +2,9 @@ pipeline{
     agent any
     stages{
         stage('Checkout'){
-           git: url: 'https://github.com/eswarmaganti/mern-tasks-app.git', branch:'main' 
+            steps{
+                git url: 'https://github.com/eswarmaganti/mern-tasks-app.git', branch:'main' 
+            }
         }
         stage('Docker Build'){
             steps{
@@ -10,13 +12,21 @@ pipeline{
             }
         }
         stage('Docker Push'){
-            withCredentials([usernamePassword(credentialsId:'docker_creds',usernameVariable:'docker_user',passwordVariable:'docker_pwd')]){
-                steps{
+            steps{
+                withCredentials([usernamePassword(credentialsId:'docker_creds',usernameVariable:'docker_user',passwordVariable:'docker_pwd')]){
                     sh 'docker login -u ${docker_user} -p ${docker_pwd}'
                     sh 'docker push eswarmaganti/mern-tasks-app'
+                    
                 }
             }
         }
     }
-
+    post{
+        success{
+            echo "*** SUCCESS: Successfully build the Docker image eswarmaganti/mern-tasks-app and pushed to DockerHub"
+        }
+        failure{
+            echo "*** FAILURE: Failed to build and push the docker image ***"
+        }
+    }
 }

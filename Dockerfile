@@ -16,5 +16,7 @@ COPY --chown=node:node react-client/ ./react-client/
 
 RUN cd react-client && npm run build
 
+ENV PORT=5001
+
 CMD ["node","tasks-api/src/server.js"]
 
