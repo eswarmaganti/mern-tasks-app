@@ -1,0 +1,22 @@
+pipeline{
+    agent any
+    stages{
+        stage('Checkout'){
+           git: url: 'https://github.com/eswarmaganti/mern-tasks-app.git', branch:'main' 
+        }
+        stage('Docker Build'){
+            steps{
+                sh 'docker build -t eswarmaganti/mern-tasks-app .'
+            }
+        }
+        stage('Docker Push'){
+            withCredentials([usernamePassword(credentialsId:'docker_creds',usernameVariable:'docker_user',passwordVariable:'docker_pwd')]){
+                steps{
+                    sh 'docker login -u ${docker_user} -p ${docker_pwd}'
+                    sh 'docker push eswarmaganti/mern-tasks-app'
+                }
+            }
+        }
+    }
+
+}
