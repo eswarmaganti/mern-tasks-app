@@ -223,6 +223,7 @@ const AddNewTask = () => {
             />
             <DialogActions>
               <Button
+                size="small"
                 type="button"
                 variant="outlined"
                 color="error"
@@ -232,6 +233,7 @@ const AddNewTask = () => {
                 Close
               </Button>
               <Button
+                size="small"
                 type="submit"
                 variant="outlined"
                 color="success"
