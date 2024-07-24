@@ -1,0 +1,26 @@
+services:
+  tasks-app:
+    build:
+      context: .
+    image: tasks-app
+    networks:
+      - app-nw
+    ports:
+      - "5050:5050"
+    environment:
+      - PORT=5050
+      - MONGODB_URI=mongodb://mongo:27017/tasks
+    volumes:
+      - /Users/eswarmaganti/data/db:/data/db
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27016:27017"
+    networks:
+      - app-nw
+
+networks:
+  app-nw:
+    driver: bridge
