@@ -1,26 +1,39 @@
 services:
-  tasks-app:
+  react-tasks-app:
     build:
-      context: .
-    image: tasks-app
-    networks:
-      - app-nw
+      context: ./react-client
+      platforms:
+        - "linux/amd64"
+        - "linux/arm64"
+    image: eswarmaganti/react-tasks-app
     ports:
-      - "5050:5050"
+      - "8081:80"
+    depends_on:
+      - node-tasks-api
+    networks:
+      - frontend
+  node-tasks-api:
+    build: ./tasks-api
+    image: eswarmaganti/node-tasks-api
+    ports:
+      - "5051:5050"
     environment:
       - PORT=5050
-      - MONGODB_URI=mongodb://mongo:27017/tasks
-    volumes:
-      - /Users/eswarmaganti/data/db:/data/db
+      - MONGODB_URI=mongodb://mongodb:27017/tasks
     depends_on:
-      - mongo
-  mongo:
+      - mongodb
+    networks:
+      - frontend
+      - backend
+  mongodb:
     image: mongo:latest
     ports:
       - "27016:27017"
     networks:
-      - app-nw
+      - backend
 
 networks:
-  app-nw:
+  frontend:
+    driver: bridge
+  backend:
     driver: bridge

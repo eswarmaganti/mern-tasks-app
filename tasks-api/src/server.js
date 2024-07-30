@@ -24,7 +24,7 @@ app.use(express.json());
 db();
 
 app.use(cors());
-app.use(express.static(path.join(__dirname, "../../react-client/dist/")));
+// app.use(express.static(path.join(__dirname, "../../react-client/dist/")));
 app.use("/api/v1/tasks/", taskRouter);
 app.use("/api/v1/taskupdates/", taskUpdatesRouter);
 
