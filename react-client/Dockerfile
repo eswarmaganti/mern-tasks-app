@@ -1,5 +1,5 @@
 # selecting the base node image
-FROM node:20-bullseye-slim as build
+FROM node:20-bullseye-slim AS build
 
 # set the working directory
 WORKDIR /usr/src/app
@@ -20,10 +20,10 @@ RUN npm run build
 
 
 # select the nginx image
-FROM nginx:1.27.0-alpine-slim
+FROM nginx:1.27.0-alpine-slim AS prod
 
 # copy the nginx config file
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
 # copy the build files to nginx html dir
 COPY --link --from=build /usr/src/app/dist/ /usr/share/nginx/html

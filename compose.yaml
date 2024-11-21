@@ -3,14 +3,20 @@ services:
     build:
       context: ./react-client
     image: eswarmaganti/react-tasks-app:latest
+    # volumes:
+    #   - "./react-client/nginx.conf:/etc/nginx/templates/default.conf.template"
     ports:
       - "3000:80"
+    environment:
+      - BACKEND_URI=http://node-tasks-app:5050
     depends_on:
-      - node-tasks-app-service
+      - node-tasks-app
     networks:
       - frontend
     pull_policy: always
-  node-tasks-app-service:
+    links:
+      - node-tasks-app
+  node-tasks-app:
     build: ./tasks-api
     image: eswarmaganti/node-tasks-app:latest
     ports:
